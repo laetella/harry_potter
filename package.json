@@ -1,0 +1,22 @@
+{
+  "name": "harry_potter",
+  "version": "1.0.0",
+  "description": "To try and encourage more sales of the 5 different Harry Potter books they sell, a bookshop has decided to offer discounts of multiple-book purchases.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laetella/harry_potter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/laetella/harry_potter/issues"
+  },
+  "homepage": "https://github.com/laetella/harry_potter#readme",
+  "dependencies": {
+    "jasmine": "^2.3.2"
+  }
+}
