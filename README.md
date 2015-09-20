@@ -1,9 +1,30 @@
-所有的书用键值对的形式表示 书名分别为first,second...
+关于实现的基本设计:
+
+所有的书用键值对的形式表示(即 书名:数量) 书名分别为first,second...
+
 all-book.js 类似于一个basket， 返回所有要买的书.
+
+calculate-price类 只有一个职责,即用来计算价格.
+
+因为会有多种打折方式,所以计算出的价格会有多种,用getLowestPrice()来得到最后需要的价格.
+
+可以用一个数组(allPrice)来存放所有可能的价格.
+
+用getAllPrice()方法来为数组增加元素,即将每一种可能的价格放入该数组中.
+
+计算每一种可能的价格都需要调用函数getTotalPrice().
+
+getSubTotalPrice()用来计算一种情况下 每一组的价格 ,同时将该组的书的种数改变(因为每计算一次,就需要把已经计算过的书的数量减一)
+
+关于测试:
+
 calculate-price-spec.js 用来测试计算价格类的计算结果是否正确。
-假设计算价格类里有一个得到价格的方法getTotalPrice（） 将所有的书的信息作为参数传入，返回一个价格。
-按书的种类计算
+
 第一步先测试书的种类(getKindsNum())及不同group的书的价格计算(getSinglePrice())是否正确.
+
+先求出共有多少组(即为书的种数的本数的最大值)getGroupsNum(),即有多少个可能的价格.
+
+在测试getTotalPrice()和getSubTotalPrice()时,因为存在调用关系和值的改变,所以不能同时测试.
 
 To try and encourage more sales of the 5 different Harry Potter books they sell, a bookshop has decided to offer discounts of multiple-book purchases.
 
