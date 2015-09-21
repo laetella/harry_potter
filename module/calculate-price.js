@@ -3,7 +3,7 @@ function CalculatePrice(allBooks) {
   this.keyArray = Object.keys(this.allBooks);
   this.kinds = this.getKindsNum();
   this.groups = this.getGroupsNum();
-  this.allPrice = [];
+  // this.allPrice = [];
 }
 
 CalculatePrice.prototype.getKindsNum = function() {
@@ -50,20 +50,49 @@ CalculatePrice.prototype.getSinglePrice = function(kinds) {
   return kinds * (8.00 - discount);
 };
 
-CalculatePrice.prototype.getSubTotalPrice = function(kinds) {
-  var subTotal = this.getSinglePrice(kinds);
-  for (var kind = this.kinds; kind > 0; kind--) {
-    this.allBooks[this.keyArray[kind]]--;
+CalculatePrice.prototype.getSubTotalPrice = function(allBooks,method) {
+  var count = 0;
+  var tempBooks = allBooks;
+  for (var each = 0; each < 5 - method; each++) {
+    if (tempBooks[this.keyArray[each]] > 0) {
+      tempBooks[this.keyArray[each]]--;
+      count++;
+    } else {
+      break;
+    }
   }
-  return subTotal;
+  return this.getSinglePrice(count);
 };
 
-CalculatePrice.prototype.getTotalPrice = function(allBooks) {
+CalculatePrice.prototype.getTotalPrice = function(allBooks,method) {
   var sum = 0;
-  for (var each = 0; each < this.groups; each++) {
-    sum += this.getSubTotalPrice(this.getKindsNum());
+  for (var item = 0; item < this.groups; item++) {
+    sum += this.getSubTotalPrice(allBooks,method);
   }
   return sum;
 };
+
+CalculatePrice.prototype.getAllPrice = function(allBooks) {
+  var allPrice = [];
+  for (var method = 0; method < this.groups; method++) {
+    var tempBooks = this.allBooks;
+    console.log(this.allBooks);
+    kindSum = this.getTotalPrice(tempBooks,method);
+    allPrice.push(kindSum);
+  }
+  return allPrice;
+};
+
+CalculatePrice.prototype.getLowestPrice = function(allBooks) {
+  var allPrice = this.getAllPrice(allBooks);
+  console.log(allPrice);
+  var lowestPrice = allPrice[0];
+  for (var each = 1; each < allPrice.length; each++) {
+    if (allPrice[each] < lowestPrice) {
+      lowestPrice = allPrice[each];
+    }
+  }
+  return lowestPrice;
+}
 
 module.exports = CalculatePrice;
